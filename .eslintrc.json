@@ -1,0 +1,73 @@
+{
+  "extends": [
+    "prettier",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+  ,
+  "rules": {
+        "react/react-in-jsx-scope": 0,
+        "quotes": ["warn", "single"],
+        "semi": ["warn", "never"],
+        "comma-dangle": ["warn", "never"],
+        // "no-unused-vars": ["warn", { vars: "all", args: "after-used" }],
+        "no-unused-vars": "off",
+        "react/prop-types": "off", 
+        // "unused-imports/no-unused-imports": "error",
+        // "unused-imports/no-unused-vars": [
+        //   "warn",
+        //   {
+        //     vars: "all",
+        //     varsIgnorePattern: "^_",
+        //     args: "after-used",
+        //     argsIgnorePattern: "^_"
+        //   }
+        // ], 
+        "multiline-ternary:": "off",
+        "no-sequences:": "off"
+      }
+}
+// module.exports = exports = {
+//   env: {
+//     browser: true,
+//     es2021: true
+//   },
+//   extends: [
+//     "react-app",
+//     // "eslint:recommended",
+//     // "plugin:react/recommended" // this plugin is required to use eslint for react, otherwise we will get errors for 'React' import, as 'no-unused-vars'
+//   ],
+//   overrides: [],
+//   parserOptions: {
+//     ecmaVersion: "latest",
+//     sourceType: "module"
+//   },
+//   plugins: ["react"],
+//   rules: {
+//     "react/react-in-jsx-scope": 0,
+//     quotes: ["warn", "double"],
+//     semi: ["warn", "never"],
+//     "comma-dangle": ["warn", "never"],
+//     // "no-unused-vars": ["warn", { vars: "all", args: "after-used" }],
+//     "no-unused-vars": "off",
+//     "react/prop-types": "off",
+//     // "unused-imports/no-unused-imports": "error",
+//     // "unused-imports/no-unused-vars": [
+//     //   "warn",
+//     //   {
+//     //     vars: "all",
+//     //     varsIgnorePattern: "^_",
+//     //     args: "after-used",
+//     //     argsIgnorePattern: "^_"
+//     //   }
+//     // ],
+//     "multiline-ternary:": "off",
+//     "no-sequences:": "off"
+//   }
+// }
