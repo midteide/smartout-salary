@@ -1,166 +1,8 @@
 import './App.css'
-
-// "mode" : 1 = Kalkulere normal
-// "mode" : 2 = Kalkulere uten Supplements
-// "mode" : 3 = Kalkulere timer men skriv lønn i null
-
-const d = {
-  status: 'Approved',
-  shiftID: '523130',
-  userId: '1',
-  title: 'Servitør',
-  salaryCode: '1',
-  team: 'Servitør',
-  userName: 'Pontus S. Lindroth ',
-  accountantId: '12',
-  baseSalary: 250,
-  start: 1721077200000,
-  startDate: '15.07.24 21:00',
-  end: 1721115000000,
-  endDate: '16.07.24 07:30',
-  shiftStatus: 4,
-  employeeType: 'Hour salary',
-  timezoneOffSet: '2',
-
-  records: [
-    {
-      title: '1337',
-      type: 'workTime',
-      start: 1721077200,
-      startPrint: '15.07.2024 21:00',
-      end: 1721115000,
-      endPrint: '16.07.2024 07:30',
-      id: 1,
-      value: 37800.0,
-      amount: '0'
-    },
-    {
-      title: 'Smuss tillegg',
-      type: 'supplement',
-      start: 1706662800,
-      startPrint: '31.01.2024 00:00',
-      end: 1706662800,
-      endPrint: '31.01.2024 00:00',
-      id: 106,
-      value: 1.0,
-      amount: '500'
-    },
-    {
-      title: 'Måltidsfradrag ',
-      type: 'supplement',
-      start: 1721098800,
-      startPrint: '16.07.2024 03:00',
-      end: 1721098800,
-      endPrint: '16.07.2024 03:00',
-      id: 5001,
-      value: 1.0,
-      amount: '-60'
-    }
-  ],
-
-  supplements: [
-    {
-      id: '14',
-      title: 'Natt tilegg... Test',
-      salaryCode: '3225',
-      type: 'fromHourToHour',
-      wageAdjustment: 'addToExistingAmount',
-      pcsValue: 45.0,
-      start: 1720998000,
-      startPrint: '01.01.23 23:00',
-      end: 1721192400,
-      endPrint: '01.01.25 05:00',
-      afterMinutes: '0',
-      duration: '0',
-      weekDays: '1, 2, 3, 4, 5, 6, 0',
-      range: 'week',
-      employeeTypes: '1, 1',
-      teams:
-        'First pioneers, Employee, Developer, Employee, Systuen, Brettspill gjengen, Gründerkafe, Parkering, Båt vakter, Servitør, Runner, Hovmester, Administrasjon, Settefiskanlegg, Lærling, Junior Frisør, Elektor, Rør, Kunde, Faggruppe 1, Faggruppe 2'
-    },
-    {
-      id: '11',
-      title: 'Mandag',
-      salaryCode: '123444',
-      type: 'fromHourToHour',
-      wageAdjustment: 'addToExistingAmount',
-      pcsValue: 10.0,
-      start: 1720956600,
-      startPrint: '14.07.24 11:30',
-      end: 1721250000,
-      endPrint: '14.07.24 21:00',
-      afterMinutes: '0',
-      duration: '0',
-      weekDays: '1, 2, 3, 4, 5, 6, 0',
-      range: 'week',
-      employeeTypes: '1, 1',
-      teams:
-        'First pioneers, Employee, Developer, Employee, Systuen, Brettspill gjengen, Gründerkafe, Parkering, Båt vakter, Servitør, Runner, Hovmester, Administrasjon, Settefiskanlegg, Lærling, Junior Frisør, Elektor, Rør, Kunde, Faggruppe 1, Faggruppe 2'
-    },
-    {
-      id: '4',
-      title: 'Overtid 40%',
-      salaryCode: '17',
-      type: 'afterXHours',
-      wageAdjustment: '%',
-      pcsValue: 40.0,
-      start: 1720915200,
-      startPrint: '31.01.24 00:00',
-      end: 1721174400,
-      endPrint: '31.01.24 00:00',
-      afterMinutes: '540',
-      duration: '59940',
-      weekDays: '1, 2, 3, 4, 5, 6, 0',
-      range: 'week',
-      employeeTypes: '1, 1',
-      teams:
-        'First pioneers, Employee, Employee, Waiter, Systuen, Brettspill gjengen, Gründerkafe, Parkering, Båt vakter, Båt vakter, Developer, Servitør, Runner, Hovmester, Administrasjon, Settefiskanlegg, Lærling, Junior Frisør, Elektor, Rør, Kunde, Faggruppe 1, Faggruppe 2'
-    },
-    {
-      id: '1',
-      title: 'Kvelds tillegg',
-      salaryCode: '19',
-      type: 'fromHourToHour',
-      wageAdjustment: 'addToExistingAmount',
-      pcsValue: 13.55,
-      start: 1720990800,
-      startPrint: '31.01.24 21:00',
-      end: 1721174400,
-      endPrint: '31.01.24 00:00',
-      afterMinutes: '0',
-      duration: '0',
-      weekDays: '1, 2, 3, 4, 5',
-      range: 'week',
-      employeeTypes: '1, 1',
-      teams:
-        'First pioneers, Employee, Employee, Waiter, Systuen, Brettspill gjengen, Gründerkafe, Parkering, Båt vakter, Båt vakter, Developer, Servitør, Runner'
-    },
-    {
-      id: '5',
-      title: 'Smuss tillegg',
-      salaryCode: '106',
-      type: 'fixed',
-      wageAdjustment: 'addToExistingAmount',
-      pcsValue: 500.0,
-      start: 1720915200,
-      startPrint: '31.01.24 00:00',
-      end: 1721174400,
-      endPrint: '31.01.24 00:00',
-      afterMinutes: '',
-      duration: '',
-      weekDays: '1, 2, 3, 4, 5, 6, 0',
-      range: 'week',
-      employeeTypes: '1, 1',
-      teams:
-        'First pioneers, Employee, Employee, Waiter, Systuen, Brettspill gjengen, Gründerkafe, Parkering, Båt vakter, Båt vakter, Developer, Servitør, Runner'
-    }
-  ]
-}
-
-const data = JSON.stringify(d)
+import { data } from './json'
 
 function App() {
-  var indata = JSON.parse(data)
+  var inputData = JSON.parse(data)
 
   function calculateMinutesWithinRange(shiftStart, shiftEnd, supStart, supEnd) {
     function parseTime(date) {
@@ -500,8 +342,8 @@ function App() {
   //  ******************************************************
   //  ***** BELOW THIS LINE IS NOT PART OF BUBBLE CODE *****
   //  ******************************************************
-  const calculcatedSalary = calculateSalary(indata)
-  const listofstrings = listOfStrings(indata) || []
+  const calculcatedSalary = calculateSalary(inputData)
+  const listofstrings = listOfStrings(inputData) || []
   // console.log('=================== START 2 ===================')
   // const calculcatedSalary2 = rawData2 && calculateSalary(rawData2)
   // const listofstrings2 = (rawData2 && listOfStrings(rawData2)) || []
