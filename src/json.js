@@ -1,23 +1,57 @@
 const d = {
   status: 'Approved',
-  shiftID: '992833',
+  shiftID: '949073',
   userId: '1',
   title: 'Servitør',
-  salaryCode: '',
-  team: 'Servitør',
+  salaryCode: '2001',
   userName: 'Pontus lindroth W',
-  accountantId: '',
+  accountantId: '422',
   baseSalary: 500,
-  start: 1721511000000,
-  startDate: '20.07.24 21:30',
-  end: 1721557800000,
-  endDate: '21.07.24 10:30',
+  start: 1721595600000,
+  startDate: '21.07.24 21:00',
+  end: 1721624400000,
+  endDate: '22.07.24 05:00',
   shiftStatus: 4,
-  employeeType: '',
   timezoneOffSet: '2',
-  fasit: '7862.50',
 
-  records: [],
+  records: [
+    {
+      title: 'Servitør',
+      type: 'workTime',
+      start: 1721595600,
+      startPrint: '21.07.2024 21:00',
+      end: 1721624400,
+      endPrint: '22.07.2024 05:00',
+      id: 2001,
+      value: 0.0,
+      salaryCode: 2001,
+      amount: 28800.0
+    },
+    {
+      title: 'Break',
+      type: 'manual',
+      start: 1721595600,
+      startPrint: '21.07.2024 21:00',
+      end: 1721595600,
+      endPrint: '21.07.2024 21:00',
+      id: 1244,
+      value: -500.0,
+      salaryCode: 1244,
+      amount: 1.0
+    },
+    {
+      title: 'Måltidsfradrag ',
+      type: 'manual',
+      start: 1721617200,
+      startPrint: '22.07.2024 03:00',
+      end: 1721617200,
+      endPrint: '22.07.2024 03:00',
+      id: 343,
+      value: -50.0,
+      salaryCode: 343,
+      amount: 1.0
+    }
+  ],
 
   supplements: [
     {
@@ -27,18 +61,15 @@ const d = {
       type: 'fromHourToHour',
       wageAdjustment: 'addToExistingAmount',
       pcsValue: 16.0,
-      start: 1721509200,
+      start: 1721595600,
       startPrint: '12.03.24 21:00',
-      end: 1721520000,
+      end: 1721606400,
       endPrint: '12.03.24 00:00',
-      afterMinutes: '',
-      duration: '',
-      weekDays: '1, 2, 3, 4, 5, 6, 0',
-      enforcePayment: 'nei',
-      employeeTypes: '2001, 2001',
-      activeOnHolyday: '',
-      teams:
-        'Servitør, Hovmester, Vert Restaurant, Bartender Restaurant, Bartender kjeller, Vert, Runner, Kjøkken Sjef, Kokk, Commis, Restaurant sjef, Kontor, Bartender terrassebar, 1.linje, Vakt kjeller, Bartender Minibar, Backbar kjeller, Hagesjef, Jr bartender festivalbar, Jr bartender pølsebod, Jr bartender pølsebod, Mat pølsebod, Mat pølsebod'
+      afterMinutes: '0',
+      duration: '0',
+      weekDays: '1, 2, 3, 4, 5, 6',
+      enforcePayment: 'no',
+      activeOnHolyday: ''
     },
     {
       id: '2',
@@ -47,18 +78,15 @@ const d = {
       type: 'fromHourToHour',
       wageAdjustment: 'addToExistingAmount',
       pcsValue: 55.0,
-      start: 1721433600,
+      start: 1721520000,
       startPrint: '12.03.24 00:00',
-      end: 1721538000,
+      end: 1721624400,
       endPrint: '12.03.24 05:00',
-      afterMinutes: '',
-      duration: '',
+      afterMinutes: '0',
+      duration: '0',
       weekDays: '1, 2, 3, 4, 5, 6, 0',
-      enforcePayment: 'nei',
-      employeeTypes: '2001, 2001',
-      activeOnHolyday: '',
-      teams:
-        'Servitør, Hovmester, Vert Restaurant, Bartender Restaurant, Bartender kjeller, Vert, Runner, Kjøkken Sjef, Kokk, Commis, Restaurant sjef, Kontor, Bartender terrassebar, 1.linje, Vakt kjeller, Bartender Minibar, Backbar kjeller, Hagesjef, Jr bartender festivalbar, Jr bartender pølsebod, Jr bartender pølsebod, Mat pølsebod, Mat pølsebod'
+      enforcePayment: 'no',
+      activeOnHolyday: ''
     },
     {
       id: '5',
@@ -67,18 +95,15 @@ const d = {
       type: 'afterXHours',
       wageAdjustment: '%',
       pcsValue: 40.0,
-      start: 1721433600,
+      start: 1721520000,
       startPrint: '11.07.24 00:00',
-      end: 1721520000,
+      end: 1721606400,
       endPrint: '11.07.34 00:00',
       afterMinutes: '540',
       duration: '59940',
       weekDays: '1, 2, 3, 4, 5, 6, 0',
-      enforcePayment: 'nei',
-      employeeTypes: '2001, 2001',
-      activeOnHolyday: '',
-      teams:
-        'Servitør, Hovmester, Vert Restaurant, Bartender Restaurant, Restaurant sjef, Kjøkken hjelp, Kjøkken Sjef, Kokk, Commis, Vert, Runner, 1.linje, Hagesjef, Burger sjappa, Bartender kjeller, Bartender terrassebar, Vakt kjeller, Bartender Minibar, Backbar kjeller, Kontor, Jr bartender festivalbar, Jr bartender pølsebod, Mat pølsebod'
+      enforcePayment: 'no',
+      activeOnHolyday: ''
     },
     {
       id: '8',
@@ -87,23 +112,255 @@ const d = {
       type: 'fromHourToHour',
       wageAdjustment: 'addToExistingAmount',
       pcsValue: 55.0,
-      start: 1721455200,
+      start: 1721541600,
       startPrint: '01.01.24 06:00',
-      end: 1721520000,
+      end: 1721606400,
       endPrint: '01.01.24 00:00',
       afterMinutes: '0',
       duration: '0',
       weekDays: '0',
-      enforcePayment: 'nei',
-      employeeTypes: '2001, 2001',
-      activeOnHolyday: '',
-      teams:
-        'Servitør, Hovmester, Vert Restaurant, Bartender Restaurant, Restaurant sjef, Kjøkken hjelp, Kjøkken Sjef, Kokk, Commis, Vert, Runner, 1.linje, Hagesjef, Burger sjappa, Bartender kjeller, Bartender terrassebar, Vakt kjeller, Bartender Minibar, Backbar kjeller, Kontor, Jr bartender festivalbar, Jr bartender pølsebod, Mat pølsebod'
+      enforcePayment: 'no',
+      activeOnHolyday: ''
+    },
+    {
+      id: '11',
+      title: 'Lørdag',
+      salaryCode: '1133',
+      type: 'fromHourToHour',
+      wageAdjustment: 'addToExistingAmount',
+      pcsValue: 50.0,
+      start: 1721570400,
+      startPrint: '01.01.24 14:00',
+      end: 1721606400,
+      endPrint: '01.01.24 00:00',
+      afterMinutes: '0',
+      duration: '0',
+      weekDays: '6',
+      enforcePayment: 'no',
+      activeOnHolyday: ''
+    },
+    {
+      id: '14',
+      title: 'Pause regel 6h',
+      salaryCode: '1244',
+      type: 'manual',
+      wageAdjustment: 'addToExistingAmount',
+      pcsValue: 0.0,
+      start: 1721595600,
+      startPrint: '',
+      end: 1721624400,
+      endPrint: '',
+      afterMinutes: '360',
+      duration: '30',
+      weekDays: '1, 2, 3, 4, 5, 6, 0',
+      enforcePayment: '',
+      activeOnHolyday: ''
+    },
+    {
+      id: '15',
+      title: 'Pause etter 8h',
+      salaryCode: '6522',
+      type: 'manual',
+      wageAdjustment: 'fixed',
+      pcsValue: 0.0,
+      start: 1721595600,
+      startPrint: '',
+      end: 1721624400,
+      endPrint: '',
+      afterMinutes: '450',
+      duration: '30',
+      weekDays: '1, 2, 3, 4, 5, 6, 0',
+      enforcePayment: '',
+      activeOnHolyday: ''
+    },
+    {
+      id: '6',
+      title: 'Måltidsfradrag ',
+      salaryCode: '343',
+      type: 'manual',
+      wageAdjustment: 'fixed',
+      pcsValue: -50.0,
+      start: 1721595600,
+      startPrint: '',
+      end: 1721624400,
+      endPrint: '',
+      afterMinutes: '360',
+      duration: '1',
+      weekDays: '1, 2, 3, 4, 5, 6, 0',
+      enforcePayment: '',
+      activeOnHolyday: ''
     }
   ]
 }
 
 const array = [
+  {
+    status: 'Approved',
+    shiftID: '839107',
+    userId: '1',
+    title: 'Servitør',
+    salaryCode: '2001',
+    userName: 'Pontus lindroth W',
+    accountantId: '422',
+    baseSalary: 500,
+    start: 1721592000000,
+    startDate: '21.07.24 20:00',
+    end: 1721664000000,
+    endDate: '22.07.24 16:00',
+    shiftStatus: 4,
+    timezoneOffSet: '2',
+    fasit: [
+      '1,839107,-,21.07.2024,Servitør,2001,20:00,16:00,20.00,500,10000.00,Pontus lindroth W',
+      '1,839107,1244,22.07.2024,Pause regel 6h,1244,02:00,02:30,0.5,-250,-125,Pontus lindroth W',
+      '1,839107,5,22.07.2024,Overtid 40%,6001,05:00,16:00,11.00,200,2200.00,Pontus lindroth W',
+      '1,839107,2,22.07.2024,Nattillegg,2003,00:00,05:00,5.00,55,275.00,Pontus lindroth W',
+      '1,839107,8,21.07.2024,Søndag,3333,20:00,00:00,4.00,55,220.00,Pontus lindroth W'
+    ],
+
+    records: [
+      {
+        title: '1337',
+        type: 'workTime',
+        start: 1721592000,
+        startPrint: '21.07.2024 20:00',
+        end: 1721664000,
+        endPrint: '22.07.2024 16:00',
+        id: 2001,
+        value: 72000.0,
+        salaryCode: 2001,
+        amount: 0.0
+      },
+      {
+        title: 'Pause regel 6h',
+        type: 'manual',
+        start: 1721613600,
+        startPrint: '22.07.2024 02:00',
+        end: 1721615400,
+        endPrint: '22.07.2024 02:30',
+        id: 1244,
+        value: -250.0,
+        salaryCode: 1244,
+        amount: 0.5
+      },
+      {
+        title: 'Måltidsfradrag ',
+        type: 'supplement',
+        start: 1721613600,
+        startPrint: '22.07.2024 02:00',
+        end: 1721613600,
+        endPrint: '22.07.2024 02:00',
+        id: 343,
+        value: 1.0,
+        salaryCode: 343,
+        amount: -50.0
+      }
+    ],
+
+    supplements: [
+      {
+        id: '1',
+        title: 'Kveldstillegg',
+        salaryCode: '2003',
+        type: 'fromHourToHour',
+        wageAdjustment: 'addToExistingAmount',
+        pcsValue: 16.0,
+        start: 1721595600,
+        startPrint: '12.03.24 21:00',
+        end: 1721606400,
+        endPrint: '12.03.24 00:00',
+        afterMinutes: '0',
+        duration: '0',
+        weekDays: '1, 2, 3, 4, 5, 6',
+        enforcePayment: 'nei',
+        activeOnHolyday: ''
+      },
+      {
+        id: '2',
+        title: 'Nattillegg',
+        salaryCode: '2003',
+        type: 'fromHourToHour',
+        wageAdjustment: 'addToExistingAmount',
+        pcsValue: 55.0,
+        start: 1721520000,
+        startPrint: '12.03.24 00:00',
+        end: 1721624400,
+        endPrint: '12.03.24 05:00',
+        afterMinutes: '0',
+        duration: '0',
+        weekDays: '1, 2, 3, 4, 5, 6, 0',
+        enforcePayment: 'nei',
+        activeOnHolyday: ''
+      },
+      {
+        id: '5',
+        title: 'Overtid 40%',
+        salaryCode: '6001',
+        type: 'afterXHours',
+        wageAdjustment: '%',
+        pcsValue: 40.0,
+        start: 1721520000,
+        startPrint: '11.07.24 00:00',
+        end: 1721606400,
+        endPrint: '11.07.34 00:00',
+        afterMinutes: '540',
+        duration: '59940',
+        weekDays: '1, 2, 3, 4, 5, 6, 0',
+        enforcePayment: 'nei',
+        activeOnHolyday: ''
+      },
+      {
+        id: '8',
+        title: 'Søndag',
+        salaryCode: '3333',
+        type: 'fromHourToHour',
+        wageAdjustment: 'addToExistingAmount',
+        pcsValue: 55.0,
+        start: 1721541600,
+        startPrint: '01.01.24 06:00',
+        end: 1721606400,
+        endPrint: '01.01.24 00:00',
+        afterMinutes: '0',
+        duration: '0',
+        weekDays: '0',
+        enforcePayment: 'nei',
+        activeOnHolyday: ''
+      },
+      {
+        id: '14',
+        title: 'Pause regel 6h',
+        salaryCode: '1244',
+        type: 'manual',
+        wageAdjustment: 'addToExistingAmount',
+        pcsValue: 0.0,
+        start: 1721592000,
+        startPrint: '',
+        end: 1721664000,
+        endPrint: '',
+        afterMinutes: '360',
+        duration: '30',
+        weekDays: '1, 2, 3, 4, 5, 6, 0',
+        enforcePayment: '',
+        activeOnHolyday: ''
+      },
+      {
+        id: '6',
+        title: 'Måltidsfradrag ',
+        salaryCode: '343',
+        type: 'afterXHours',
+        wageAdjustment: 'manual',
+        pcsValue: -50.0,
+        start: 1721592000,
+        startPrint: '',
+        end: 1721664000,
+        endPrint: '',
+        afterMinutes: '360',
+        duration: '1',
+        weekDays: '1, 2, 3, 4, 5, 6, 0',
+        enforcePayment: '',
+        activeOnHolyday: ''
+      }
+    ]
+  },
   {
     status: 'Approved',
     shiftID: '992833',
@@ -121,7 +378,13 @@ const array = [
     shiftStatus: 4,
     employeeType: '',
     timezoneOffSet: '2',
-    fasit: '7862.50',
+    fasit: [
+      '1,992833,-,20.07.2024,Servitør,,21:30,10:30,13.00,500,6500.00,Pontus lindroth W',
+      '1,992833,5,21.07.2024,Overtid 40%,6001,06:30,10:30,4.00,200,800.00,Pontus lindroth W',
+      '1,992833,1,20.07.2024,Kveldstillegg,2003,21:30,00:00,2.50,16,40.00,Pontus lindroth W',
+      '1,992833,2,21.07.2024,Nattillegg,2003,00:00,05:00,5.00,55,275.00,Pontus lindroth W',
+      '1,992833,8,21.07.2024,Søndag,3333,06:00,10:30,4.50,55,247.50,Pontus lindroth W'
+    ],
 
     records: [],
 
@@ -225,7 +488,14 @@ const array = [
     shiftStatus: 4,
     employeeType: 'Timelønn sesongmedarbeider',
     timezoneOffSet: '2',
-    fasit: '7863.00',
+    fasit: [
+      '1,220392,-,20.07.2024,Servitør,2001,13:00,03:00,14.00,500,7000.00,Pontus lindroth W',
+      '1,220392,9764,20.07.2024,Pause etter 6h,9764,19:00,19:30,-250,0.5,-125,Pontus lindroth W',
+      '1,220392,343,20.07.2024,Måltidsfradrag ,343,19:00,19:00,-50,1,-50,Pontus lindroth W',
+      '1,220392,5,20.07.2024,Overtid 40%,6001,22:00,03:00,5.00,200,1000.00,Pontus lindroth W',
+      '1,220392,1,20.07.2024,Kveldstillegg,2003,21:00,00:00,3.00,16,48.00,Pontus lindroth W',
+      '1,220392,2,21.07.2024,Nattillegg,2003,00:00,03:00,3.00,55,165.00,Pontus lindroth W'
+    ],
 
     records: [
       {
@@ -242,7 +512,7 @@ const array = [
       },
       {
         title: 'Pause etter 6h',
-        type: 'supplement',
+        type: 'manual',
         start: 1721502000,
         startPrint: '20.07.2024 19:00',
         end: 1721503800,
@@ -254,7 +524,7 @@ const array = [
       },
       {
         title: 'Måltidsfradrag ',
-        type: 'supplement',
+        type: 'manual',
         start: 1721502000,
         startPrint: '20.07.2024 19:00',
         end: 1721502000,
@@ -328,7 +598,7 @@ const array = [
         id: '6',
         title: 'Pause etter 6h',
         salaryCode: '9764',
-        type: 'fixed',
+        type: 'manual',
         wageAdjustment: 'addToExistingAmount',
         pcsValue: 0.0,
         start: 1721480400,
@@ -348,7 +618,7 @@ const array = [
         title: 'Måltidsfradrag ',
         salaryCode: '343',
         type: 'afterXHours',
-        wageAdjustment: 'fixed',
+        wageAdjustment: 'manual',
         pcsValue: -50.0,
         start: 1721480400,
         startPrint: '',
@@ -381,7 +651,12 @@ const array = [
     shiftStatus: 4,
     employeeType: 'Hour salary',
     timezoneOffSet: '2',
-    fasit: '2478.00',
+    fasit: [
+      '1,939504,-,20.07.2024,Servitør,1,23:00,09:00,10.00,250,2500.00,Pontus S. Lindroth ',
+      '1,939504,6451,21.07.2024,Pause etter 6h,6451,05:00,05:30,-125,0.5,-62.5,Pontus S. Lindroth ',
+      '1,939504,3,21.07.2024,Søndag tillegg,21,06:00,09:00,3.00,25.75,77.25,Pontus S. Lindroth ',
+      '1,939504,2,20.07.2024,Lørdag tillegg,20,23:00,00:00,1.00,25.75,25.75,Pontus S. Lindroth '
+    ],
 
     records: [
       {
@@ -398,7 +673,7 @@ const array = [
       },
       {
         title: 'Pause etter 6h',
-        type: 'supplement',
+        type: 'manual',
         start: 1721538000,
         startPrint: '21.07.2024 05:00',
         end: 1721539800,
@@ -453,7 +728,7 @@ const array = [
         id: '12',
         title: 'Pause etter 6h',
         salaryCode: '6451',
-        type: 'fixed',
+        type: 'manual',
         wageAdjustment: 'addToExistingAmount',
         pcsValue: 0.0,
         start: 1721516400,
@@ -487,7 +762,7 @@ const array = [
     shiftStatus: 4,
     employeeType: 'Hour salary',
     timezoneOffSet: '2',
-    fasit: '1000.00',
+    fasit: ['1,820781,-,19.07.2024,Servitør,1,19:00,23:00,4.00,250,1000.00,Pontus S. Lindroth '],
 
     records: [
       {
@@ -585,7 +860,7 @@ const array = [
         id: '12',
         title: 'Pause etter 6h',
         salaryCode: '6451',
-        type: 'fixed',
+        type: 'manual',
         wageAdjustment: 'addToExistingAmount',
         pcsValue: 0.0,
         start: 1721415600,
@@ -619,7 +894,10 @@ const array = [
     shiftStatus: 4,
     employeeType: 'Hour salary',
     timezoneOffSet: '2',
-    fasit: '1103.00',
+    fasit: [
+      '1,65974,-,20.07.2024,Servitør,1,19:00,23:00,4.00,250,1000.00,Pontus S. Lindroth ',
+      '1,65974,2,20.07.2024,Lørdag tillegg,20,19:00,23:00,4.00,25.75,103.00,Pontus S. Lindroth '
+    ],
 
     records: [
       {
@@ -717,7 +995,7 @@ const array = [
         id: '12',
         title: 'Pause etter 6h',
         salaryCode: '6451',
-        type: 'fixed',
+        type: 'manual',
         wageAdjustment: 'addToExistingAmount',
         pcsValue: 0.0,
         start: 1721502000,
@@ -735,5 +1013,5 @@ const array = [
     ]
   }
 ]
-export const indata = JSON.stringify(d)
+export const data = JSON.stringify(d)
 export const indataArray = array.map((i) => JSON.stringify({ ...i, key: i.shiftID }))

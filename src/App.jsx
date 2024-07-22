@@ -1,8 +1,8 @@
 import './App.css'
-import { indata, indataArray } from './json'
+import { data, indataArray } from './json'
 
 function App() {
-  var inputData = JSON.parse(indata)
+  var inputData = JSON.parse(data)
 
   function convertWeekDaysToArray(weekDays) {
     return weekDays.split(',').map((day) => parseInt(day.trim(), 10))
@@ -32,7 +32,7 @@ function App() {
     if (nextDay && supStartTime.hours < shiftStartTime.hours) {
       debug &&
         console.log(
-          '3supStartTime.hours = shiftStartTime.hours, supStartTime.hours was: ',
+          'calculateMinutesWithinRange: 3supStartTime.hours = shiftStartTime.hours, supStartTime.hours was: ',
           supStartTime.hours,
           ' now: ',
           shiftStartTime.hours
@@ -41,19 +41,19 @@ function App() {
       // supStartTime.hours += 24
     }
     if (supEndTime.hours < supStartTime.hours) {
-      debug && console.log('!!!!!!!!!!!!!4supEndTime.hours += 24')
+      debug && console.log('calculateMinutesWithinRange: !!!!!!!!!!!!!4supEndTime.hours += 24')
       // if (supEndTime.hours < shiftStartTime.hours) {
       supEndTime.hours += 24
     } else {
-      debug && console.log('!!!!!!!!!!!!!4supEndTime.hours += 24', supEndTime.hours, supStartTime.hours)
+      debug && console.log('calculateMinutesWithinRange: !!!!!!!!!!!!!4supEndTime.hours += 24', supEndTime.hours, supStartTime.hours)
     }
     if (supStartTime.hours > shiftEndTime.hours) {
       supStartTime.hours -= 24
       supEndTime.hours -= 24
     }
-    debug && console.log('shiftStartTime: ', shiftStartTime)
-    debug && console.log('shiftEndTime: ', shiftEndTime)
-    debug && console.log('supStartTime: ', supStartTime)
+    debug && console.log('calculateMinutesWithinRange: shiftStartTime: ', shiftStartTime)
+    debug && console.log('calculateMinutesWithinRange: shiftEndTime: ', shiftEndTime)
+    debug && console.log('calculateMinutesWithinRange: supStartTime: ', supStartTime)
     debug && console.log('supEndTime: ', supEndTime)
 
     function timeToMinutes(time) {
@@ -64,15 +64,15 @@ function App() {
     let shiftEndMinutes = timeToMinutes(shiftEndTime)
     let supStartMinutes = timeToMinutes(supStartTime)
     let supEndMinutes = timeToMinutes(supEndTime)
-    debug && console.log('shiftStartMinutes: ', shiftStartMinutes)
-    debug && console.log('shiftEndMinutes: ', shiftEndMinutes)
-    debug && console.log('supStartMinutes: ', supStartMinutes)
-    debug && console.log('supEndMinutes: ', supEndMinutes)
+    debug && console.log('calculateMinutesWithinRange: shiftStartMinutes: ', shiftStartMinutes)
+    debug && console.log('calculateMinutesWithinRange: shiftEndMinutes: ', shiftEndMinutes)
+    debug && console.log('calculateMinutesWithinRange: supStartMinutes: ', supStartMinutes)
+    debug && console.log('calculateMinutesWithinRange: supEndMinutes: ', supEndMinutes)
     while (supStartMinutes > supEndMinutes) {
-      debug && console.log('Adding: ')
+      debug && console.log('calculateMinutesWithinRange: Adding: ')
       supEndMinutes += 24 * 60
-      debug && console.log('supStartMinutes: ', supStartMinutes)
-      debug && console.log('supEndMinutes: ', supEndMinutes)
+      debug && console.log('calculateMinutesWithinRange: supStartMinutes: ', supStartMinutes)
+      debug && console.log('calculateMinutesWithinRange: supEndMinutes: ', supEndMinutes)
     }
     // Ensure sup times are within the shift range
     if (supStartMinutes < shiftStartMinutes) {
@@ -82,11 +82,11 @@ function App() {
       supEndMinutes = shiftEndMinutes
     }
 
-    debug && console.log('------ AFTER -----')
-    debug && console.log('shiftStartMinutes: ', shiftStartMinutes)
-    debug && console.log('shiftEndMinutes: ', shiftEndMinutes)
-    debug && console.log('supStartMinutes: ', supStartMinutes)
-    debug && console.log('supEndMinutes: ', supEndMinutes)
+    debug && console.log('calculateMinutesWithinRange: ------ AFTER -----')
+    debug && console.log('calculateMinutesWithinRange: shiftStartMinutes: ', shiftStartMinutes)
+    debug && console.log('calculateMinutesWithinRange: shiftEndMinutes: ', shiftEndMinutes)
+    debug && console.log('calculateMinutesWithinRange: supStartMinutes: ', supStartMinutes)
+    debug && console.log('calculateMinutesWithinRange: supEndMinutes: ', supEndMinutes)
 
     let minutesWithinRange = 0
     let overlapStart = -1
@@ -107,8 +107,15 @@ function App() {
       overlapEnd = overlapEnd - shiftStartMinutes + 1
     }
 
+    const supStart2 = new Date(new Date(shiftStart).getTime())
+    supStart2.setUTCMinutes(supStart2.getUTCMinutes() + minutesWithinRange)
+    const supEnd2 = new Date(new Date(shiftStart).getTime())
+    supEnd2.setUTCMinutes(supEnd2.getUTCMinutes() + overlapEnd)
+
     return {
+      aa: new Date(new Date(shiftStart).toUTCString()),
       minutesWithinRange,
+      // supStart: supStart2,
       supStart: new Date(new Date(shiftStart).getTime() + overlapStart * 60000),
       supEnd: new Date(new Date(shiftStart).getTime() + overlapEnd * 60000)
     }
@@ -158,7 +165,7 @@ function App() {
   ) =>
     `${userID},${shiftID},${suppID},${date},${recordTitle},${salaryCode},${recordStartTime},${recordStopTime},${recordAmount},${recordValue},${totAmount},${userName}`
 
-  const calculateSalary = (dataJSON, getStrings = false, debug) => {
+  const calculateSalary = (dataJSON, getStrings = false, debug = false) => {
     try {
       const baseRate = dataJSON.baseSalary || []
       const records = dataJSON.records || []
@@ -170,7 +177,7 @@ function App() {
       const isHoursOnlyNoPay = dataJSON.mode === 3
       const salaryCode = dataJSON.salaryCode || ''
       const supplements = dataJSON.supplements || ''
-      const fixedSupplements = records.filter((item) => item.type === 'supplement')
+      const manualSupplements = records.filter((item) => item.type === 'manual')
       const fromHourToHourSupplements = supplements.filter((item) => item.type === 'fromHourToHour')
       const afterXHoursSupplements = supplements.filter((item) => item.type === 'afterXHours')
       const retStrings = []
@@ -229,35 +236,39 @@ function App() {
       // *************************************************************************
       // ********************** FIXED ADDONS *************************************
       // *************************************************************************
-      debug && fixedSupplements?.length && console.log('––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––')
-      debug && fixedSupplements?.length && console.log('********************** FIXED ADDONS *****************************')
-      let fixedSupplementsTotal = 0
+      debug && manualSupplements?.length && console.log('––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––')
+      debug && manualSupplements?.length && console.log('********************** MANUAL ADDONS *****************************')
+      let manualSupplementsTotal = 0
       try {
         !isShiftWithoutSupplements &&
-          fixedSupplements?.forEach((fixedRecord, i) => {
-            debug && console.log('iteration: ', i, fixedRecord)
-            // const currentSupplement = supplements?.find((supplement) => parseInt(supplement.salaryCode) === parseInt(fixedRecord.id))
+          manualSupplements?.forEach((manualRecord, i) => {
+            debug && console.log('iteration: ', i, manualRecord)
+            // const currentSupplement = supplements?.find((supplement) => parseInt(supplement.salaryCode) === parseInt(manualRecord.id))
 
             // if (currentSupplement) {
-            debug && console.log('ADDING FIXED SUPPLEMENT: ', fixedRecord.title, fixedRecord)
-            const supStart = new Date(fixedRecord.start * 1000)
-            const supEnd = new Date(fixedRecord.end * 1000)
-            fixedSupplementsTotal += fixedRecord.amount
-            totalSalary += fixedRecord.amount
+            debug && console.log('ADDING FIXED SUPPLEMENT: ', manualRecord.title, manualRecord)
+            const supStart = new Date(manualRecord.start * 1000)
+            const supEnd = new Date(manualRecord.end * 1000)
+            manualSupplementsTotal += manualRecord.amount
+            const manualSupplementTotalAmount = isHoursOnlyNoPay ? '0' : manualRecord.amount * manualRecord.value
+            debug && console.log('manualSupplementTotalAmount: ', manualSupplementTotalAmount)
+            debug && console.log('totalSalary: ', totalSalary)
+            totalSalary += manualSupplementTotalAmount
+            debug && console.log('totalSalary after: ', totalSalary)
             getStrings &&
               retStrings.push(
                 getString(
                   userId,
                   shiftID,
-                  fixedRecord.id,
+                  manualRecord.id,
                   formatDate(supStart),
-                  fixedRecord.title,
-                  fixedRecord.salaryCode,
+                  manualRecord.title,
+                  manualRecord.salaryCode,
                   `${forceTwoDigits(supStart.getUTCHours())}:${forceTwoDigits(supStart.getUTCMinutes())}`,
                   `${forceTwoDigits(supEnd.getUTCHours())}:${forceTwoDigits(supEnd.getUTCMinutes())}`,
-                  1,
-                  fixedRecord.amount,
-                  isHoursOnlyNoPay ? '0' : fixedRecord.amount,
+                  manualRecord.amount,
+                  manualRecord.value,
+                  manualSupplementTotalAmount,
                   userName
                 )
               )
@@ -266,8 +277,8 @@ function App() {
       } catch (error) {
         debug && console.log('Error in FIXED ADDONS: ', error)
       }
-      debug && fixedSupplements?.length && console.log('XXXXXXXXXXXXXX FINISHED FIXED ADDONS XXXXXXXXXXXXX')
-      debug && fixedSupplements?.length && console.log('––––––––––––––––––––––��––––––––––––––––––––––––––––––––––––')
+      debug && manualSupplements?.length && console.log('XXXXXXXXXXXXXX FINISHED FIXED ADDONS XXXXXXXXXXXXX')
+      debug && manualSupplements?.length && console.log('––––––––––––––––––––––��––––––––––––––––––––––––––––––––––––')
 
       // *************************************************************************
       // ********************** After X hours addons *****************************
@@ -282,7 +293,7 @@ function App() {
             // start.setUTCSeconds(startTime)
             if (!afterXHoursSupplement?.weekDays?.includes(shiftStart.getDay().toString())) return
             const amount = afterXHoursSupplement.wageAdjustment === 'addToExistingAmount' && afterXHoursSupplement.pcsValue
-            const fixed = afterXHoursSupplement.wageAdjustment === 'fixed' && afterXHoursSupplement.pcsValue
+            const manual = afterXHoursSupplement.wageAdjustment === 'manual' && afterXHoursSupplement.pcsValue
             const percentage = afterXHoursSupplement.wageAdjustment === '%' && (dataJSON.baseSalary * afterXHoursSupplement.pcsValue) / 100
             const workTimeTotal = parseFloat(totalWorkingTime)
             let overtimeMinutes = workTimeTotal * 60 - parseInt(afterXHoursSupplement.afterMinutes)
@@ -303,15 +314,15 @@ function App() {
             if (overtimeMinutes > 0) {
               if (amount) afterXHoursSupplementsMoneyAmount += (amount * overtimeMinutes) / 60
               if (percentage) afterXHoursSupplementsMoneyAmount += (percentage * overtimeMinutes) / 60
-              if (fixed) afterXHoursSupplementsMoneyAmount = fixed
+              if (manual) afterXHoursSupplementsMoneyAmount = manual
             }
-            if (getStrings && afterXHoursSupplementsMoneyAmount > 0) {
+            if (getStrings && afterXHoursSupplementsMoneyAmount !== 0) {
               retStrings.push(
                 getString(
                   userId,
                   shiftID,
                   afterXHoursSupplement.id,
-                  formatDate(shiftStart),
+                  formatDate(supStart),
                   afterXHoursSupplement.title,
                   afterXHoursSupplement.salaryCode,
                   `${forceTwoDigits(supStart.getUTCHours())}:${forceTwoDigits(supStart.getUTCMinutes())}`,
@@ -324,6 +335,7 @@ function App() {
               )
             }
             afterXHoursSupplementsTotal += afterXHoursSupplementsMoneyAmount
+            debug && console.log('afterXHoursSupplementsTotal: ', afterXHoursSupplementsTotal)
             totalSalary += afterXHoursSupplementsMoneyAmount
             debug && console.log('------- iteration: ', i, ' DONE -------')
           })
@@ -349,16 +361,28 @@ function App() {
             debug && console.log('shift Day: ', shiftStart.getUTCDay().toString())
             const weekDaysArray = convertWeekDaysToArray(fromHourToHourSupplement.weekDays)
             debug && console.log('weekDaysArray: ', weekDaysArray)
-            const fixed = fromHourToHourSupplement.wageAdjustment === 'fixed' && fromHourToHourSupplement.pcsValue
+            const manual = fromHourToHourSupplement.wageAdjustment === 'manual' && fromHourToHourSupplement.pcsValue
             const amount = fromHourToHourSupplement.wageAdjustment === 'addToExistingAmount' && fromHourToHourSupplement.pcsValue
             const percentage =
               fromHourToHourSupplement.wageAdjustment === '%' && (data.baseSalary * fromHourToHourSupplement.pcsValue) / 100
             debug && console.log('amount: ', amount)
             debug && console.log('percentage: ', percentage)
-            debug && console.log('shiftStartTime: ', new Date(dataJSON.start).toISOString())
-            debug && console.log('shiftEndTime: ', new Date(dataJSON.end).toISOString())
-            debug && console.log('supStartTime: ', new Date(fromHourToHourSupplement.start * 1000).toISOString())
-            debug && console.log('supEndTime: ', new Date(fromHourToHourSupplement.end * 1000).toISOString())
+            debug && console.log('shiftStartTime: ', new Date(dataJSON.start).toISOString(), ' day: ', new Date(dataJSON.start).getUTCDay())
+            debug && console.log('shiftEndTime: ', new Date(dataJSON.end).toISOString(), ' day: ', new Date(dataJSON.end).getUTCDay())
+            debug &&
+              console.log(
+                'supStartTime: ',
+                new Date(fromHourToHourSupplement.start * 1000).toISOString(),
+                ' day: ',
+                new Date(fromHourToHourSupplement.start * 1000).getUTCDay()
+              )
+            debug &&
+              console.log(
+                'supEndTime: ',
+                new Date(fromHourToHourSupplement.end * 1000).toISOString(),
+                ' day: ',
+                new Date(fromHourToHourSupplement.end * 1000).getUTCDay()
+              )
 
             let fromHourToHourSupplementCalculations
             const supplementIsOnSameDay = supplementStart.getUTCHours() <= supplementEnd.getUTCHours()
@@ -380,17 +404,28 @@ function App() {
                 )
               return
             }
-            let newStartTime = new Date(dataJSON.start)
-            debug && console.log('55 newStartTime before: ', newStartTime)
-            while (newStartTime.getUTCDay() !== weekDaysArray[0]) {
-              newStartTime.addHours(1 / 60)
+            let shiftStartTimeCalculated = new Date(dataJSON.start)
+            debug && console.log('55 shiftStartTimeCalculated before: ', shiftStartTimeCalculated)
+            while (shiftStartTimeCalculated.getUTCDay() !== weekDaysArray[0]) {
+              shiftStartTimeCalculated.addHours(1 / 60)
             }
-            debug && console.log('55 newStartTime after: ', newStartTime)
+            debug && console.log('55 shiftStartTimeCalculated after: ', shiftStartTimeCalculated)
+
+            let shiftEndTimeCalculated = new Date(dataJSON.end)
+            debug && console.log('55 shiftEndTimeCalculated before: ', shiftEndTimeCalculated)
+            if (!weekDaysArray.includes(shiftEndTimeCalculated.getUTCDay())) {
+              while (!weekDaysArray.includes(shiftEndTimeCalculated.getUTCDay())) {
+                // while (shiftEndTimeCalculated.getUTCDay() !== weekDaysArray[0]) {
+                shiftEndTimeCalculated.addHours(-1 / 60)
+              }
+              shiftEndTimeCalculated.addHours(1 / 60)
+            }
+            debug && console.log('55 shiftEndTimeCalculated after: ', shiftEndTimeCalculated)
             if (shiftIsOnSameDay && weekDaysArray.includes(new Date(shiftStart).getUTCDay())) {
               debug && console.log('################## 11 ##################')
               fromHourToHourSupplementCalculations = calculateMinutesWithinRange(
                 dataJSON.start,
-                dataJSON.end,
+                shiftEndTimeCalculated, //dataJSON.end,
                 supplementStart,
                 supplementEnd,
                 false,
@@ -404,7 +439,7 @@ function App() {
               debug && console.log('################## 22 ##################')
               fromHourToHourSupplementCalculations = calculateMinutesWithinRange(
                 dataJSON.start,
-                dataJSON.end,
+                shiftEndTimeCalculated, //dataJSON.end,
                 supplementStart,
                 supplementEnd,
                 supplementIsOnSameDay,
@@ -414,7 +449,7 @@ function App() {
               debug && console.log('################## 33 ##################')
               fromHourToHourSupplementCalculations = calculateMinutesWithinRange(
                 dataJSON.start,
-                dataJSON.end,
+                shiftEndTimeCalculated, //dataJSON.end,
                 supplementStart,
                 supplementEnd,
                 true,
@@ -429,8 +464,8 @@ function App() {
               debug && console.log('################## 55 ##################')
 
               fromHourToHourSupplementCalculations = calculateMinutesWithinRange(
-                newStartTime,
-                dataJSON.end,
+                shiftStartTimeCalculated,
+                shiftEndTimeCalculated, //dataJSON.end,
                 supplementStart,
                 supplementEnd,
                 false,
@@ -444,15 +479,15 @@ function App() {
             }
 
             debug && console.log('fromHourToHourSupplementCalculations: ', fromHourToHourSupplementCalculations)
-
+            if (fromHourToHourSupplementCalculations.minutesWithinRange <= 0) return
             let hoursWithinRange = fromHourToHourSupplementCalculations.minutesWithinRange / 60
             let fromHourToHourSupplementMoneyAmount = 0
             if (amount) {
               fromHourToHourSupplementMoneyAmount = amount * hoursWithinRange
             } else if (percentage) fromHourToHourSupplementMoneyAmount = percentage * hoursWithinRange
-            else if (fixed) fromHourToHourSupplementMoneyAmount = fixed
+            else if (manual) fromHourToHourSupplementMoneyAmount = manual
             totalSalary += fromHourToHourSupplementMoneyAmount
-            if (getStrings && fromHourToHourSupplementMoneyAmount > 0) {
+            if (getStrings && fromHourToHourSupplementMoneyAmount !== 0) {
               retStrings.push(
                 getString(
                   userId,
@@ -480,24 +515,34 @@ function App() {
       }
 
       if (getStrings) return retStrings
+      console.log('totalSalary at end: ', totalSalary)
       return isHoursOnlyNoPay ? 0 : totalSalary.toFixed(2)
     } catch (error) {
       if (getString) return ['Error: ' + error]
       return 'Error: ' + error
     }
   }
-  const listOfStrings = (dataString, debug) => calculateSalary(dataString, true, debug)
+  const listOfStrings = (dataString, debugVar = false) => calculateSalary(dataString, true, debugVar)
 
   //  ******************************************************
   //  ***** BELOW THIS LINE IS NOT PART OF BUBBLE CODE *****
   //  ******************************************************
+  function arraysEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) return false
+
+    return arr1.every((obj1, index) => {
+      const obj2 = arr2[index]
+      return Object.keys(obj1).length === Object.keys(obj2).length && Object.keys(obj1).every((key) => obj1[key] === obj2[key])
+    })
+  }
+
   console.log('***************** START *****************')
   const calculcatedSalary = calculateSalary(inputData)
   const listofstrings = listOfStrings(inputData, true) || []
   console.log('calculcatedSalary: ', calculcatedSalary)
   console.log('listofstrings: ', listofstrings)
   console.log('***************** END *****************')
-  // console.log('=================== START 2 ===================')
+  console.log('=================== START 2 ===================')
   const tempDataRef = null // indataArray[0]
   const tempData = tempDataRef && JSON.parse(tempDataRef)
   const calculcatedSalary2 = tempData && calculateSalary(tempData)
@@ -554,12 +599,31 @@ function App() {
       <h1>Tests:</h1>
       {indataArray.map((json, index) => {
         const jsonParsed = JSON.parse(json)
-        const calculatedSalary = calculateSalary(jsonParsed)
+        const calculatedSalary = calculateSalary(jsonParsed, false, false)
+        const listofstrings = listOfStrings(jsonParsed, false) || []
+        const arraysAreEqual = arraysEqual(listofstrings, jsonParsed?.fasit)
         return (
-          <h3 key={jsonParsed?.shiftID} style={{ color: calculatedSalary === jsonParsed?.fasit ? 'green' : 'red' }}>
-            #{index}: Shift ID {jsonParsed?.shiftID}: Calculated: {calculateSalary(jsonParsed)}{' '}
-            {jsonParsed?.fasit && ` Correct: ${jsonParsed?.fasit}`}
-          </h3>
+          <div key={jsonParsed?.shiftID}>
+            <h3 style={{ color: arraysAreEqual ? 'green' : 'red' }}>
+              {arraysAreEqual ? '✅' : '❌'} #{index}: Shift ID {jsonParsed?.shiftID}: Calculated: {calculatedSalary}
+            </h3>
+            {!arraysAreEqual && (
+              <div>
+                Fasit:
+                <ol style={{ paddingLeft: 32 }}>
+                  {jsonParsed?.fasit.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ol>
+                Generated:
+                <ol style={{ paddingLeft: 32 }}>
+                  {listofstrings.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ol>
+              </div>
+            )}
+          </div>
         )
       })}
     </div>
